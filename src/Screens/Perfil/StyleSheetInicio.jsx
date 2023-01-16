@@ -37,28 +37,37 @@ export const estilo = StyleSheet.create({
     fontWeight: "bold",
   },
   nombre: { left: 0 },
-  row1: {
-    flexDirection: "row",
-    right: 3,
-  },
+
   textoCiudadRespuesta: {
     fontWeight: "bold",
-    left: 80,
+    left: Dimensions.get("window").width / 5.5,
     fontSize: 17,
-    
+
   },
   textoCiudad: {
     left: 100,
   },
   numAfi: {
-    left: 145,
+    left: Dimensions.get("window").width / 3,
     fontWeight: "bold",
     fontSize: 17,
   },
+  row1: {
+    flexDirection: "row",
+    right: 3,
+    fontSize: 12
+  },
   row2: {
     flexDirection: "row",
+  },
+  row3: {
+    flexDirection: "row",
     zIndex: 2,
-    bottom: 1,
+  },
+  row4: {
+    flexDirection:
+      "row",
+    zIndex: 2
   },
   textoNac: {},
 
@@ -73,7 +82,7 @@ export const estilo = StyleSheet.create({
 
   rnep: {
     fontWeight: "bold",
-    right: -285,
+    left: Dimensions.get("window").width / 1.7,
   },
   eman: {
     fontWeight: "bold",
@@ -81,29 +90,25 @@ export const estilo = StyleSheet.create({
   },
 
   textoAfiliado: {
-    left: 205,
+    left: Dimensions.get("window").width / 2.11,
   },
   textoDocNum: {
-    left: 200,
+    left: Dimensions.get("window").width / 2.44,
     fontWeight: "bold",
   },
   textoDoc: {
-    left: 185,
+    left: Dimensions.get("window").width / 2.44,
   },
-  textoParentesco:{
-    left:100
+  textoParentesco: {
+    left: Dimensions.get("window").width / 3.73
   },
   nacRespuestaTitular: {
     fontWeight: "bold",
   },
   textoTitular: {
     fontWeight: "bold",
-    left: 99.1,
+    left: Dimensions.get("window").width / 3.73,
   },
-  row3: {
-    flexDirection: "row",
-    zIndex: 2,
-  },
-  row4: { flexDirection: "row", zIndex: 2 },
- 
+
+
 });

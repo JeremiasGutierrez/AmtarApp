@@ -3,8 +3,24 @@ import Constants from "expo-constants";
 import { Theme } from "../Theme";
 import { estilo } from "./Perfil/StyleSheetInicio";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
+import { useState, useEffect } from "react";
+import axios from "axios"
 export function ScreenInicio() {
+  const [list, setList] = useState([]);
+  useEffect(() => {
+    axios({
+      url: "http://osarpyh-testint.dyndns.org/wsvalidaafi2/apiafi.php?numdoc=5324335&entidad=1",
+    })
+      .then((response) => {
+        setList(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [setList]);
+
+
+  console.log(list)
   return (
     <View style={{ backgroundColor: Theme.Dark, height: "100%" }}>
       <TouchableOpacity style={estilo.container}>
@@ -28,8 +44,8 @@ export function ScreenInicio() {
             top: 7,
           }}
         ></View>
-        <Text style={estilo.nombreRespuesta}> Gutierrez Roldan Jeremias</Text>
-        <Text style={estilo.nombre}> Nombre</Text>
+        <Text style={estilo.nombreRespuesta}> { }</Text>
+        <Text style={estilo.nombre}>Nombre</Text>
         <View style={estilo.row1}>
           <Text style={estilo.nacRespuesta}> 14/2/2003</Text>
           <Text style={estilo.textoCiudadRespuesta}>Mar del Plata</Text>
