@@ -3,12 +3,38 @@ import { Theme } from "../../Theme";
 
 export const estilo = StyleSheet.create({
   container: {
-    height: Dimensions.get("window").height / 3,
+    height: Dimensions.get("window").height / 2.7,
     width: Dimensions.get("window").width / 1.1,
     backgroundColor: Theme.TarjetaAzul,
     borderRadius: 10,
     alignSelf: "center",
-    top: 150,
+    top: Dimensions.get('window').height/8,
+  },
+  row: {
+    left:10,
+    flex: 1,
+    padding: 0,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    rowGap: 3,
+    flexWrap: "wrap",
+    position:"absolute",
+    top:Dimensions.get("window").height/8,
+    width: Dimensions.get("window").width/1,
+  },
+  textoResaltado:{
+      fontSize: 14,
+      fontWeight: "bold",
+      flexGrow: 5,
+      height: 25,
+      width: 100,
+  },
+  textoNormal:{
+    fontSize: 12,
+    flexGrow: 5,
+    height: 25,
+    width: 100,
+
   },
   containerHeader: {
     height: Dimensions.get("window").height / 49.99,
@@ -20,90 +46,19 @@ export const estilo = StyleSheet.create({
     zIndex: 2,
   },
   amtarTitulo: {
-    right: 0,
-    fontSize: 58,
+    alignSelf:'flex-end',
+    fontSize: Dimensions.get("window").height / 15,
     zIndex: 2,
     position: "absolute",
   },
   imagen: {
     height: Dimensions.get("window").height / 12,
     width: Dimensions.get("window").width / 5.4,
-    top: 3,
-    position: "relative",
+    right:Dimensions.get('window').width/55,
   },
-  texto: {
-    top: 2,
-    right: -5,
+  amtarSubTitulo: {
+    alignSelf: "flex-end",
+    bottom: 25,
     fontWeight: "bold",
   },
-  nombre: { left: 0 },
-  row1: {
-    flexDirection: "row",
-    right: 3,
-  },
-  textoCiudadRespuesta: {
-    fontWeight: "bold",
-    left: 80,
-    fontSize: 17,
-    
-  },
-  textoCiudad: {
-    left: 100,
-  },
-  numAfi: {
-    left: 145,
-    fontWeight: "bold",
-    fontSize: 17,
-  },
-  row2: {
-    flexDirection: "row",
-    zIndex: 2,
-    bottom: 1,
-  },
-  textoNac: {},
-
-  nombreRespuesta: {
-    fontWeight: "bold",
-    fontSize: 20,
-  },
-  nacRespuesta: {
-    fontWeight: "bold",
-    fontSize: 17,
-  },
-
-  rnep: {
-    fontWeight: "bold",
-    right: -285,
-  },
-  eman: {
-    fontWeight: "bold",
-    left: -110,
-  },
-
-  textoAfiliado: {
-    left: 205,
-  },
-  textoDocNum: {
-    left: 200,
-    fontWeight: "bold",
-  },
-  textoDoc: {
-    left: 185,
-  },
-  textoParentesco:{
-    left:100
-  },
-  nacRespuestaTitular: {
-    fontWeight: "bold",
-  },
-  textoTitular: {
-    fontWeight: "bold",
-    left: 99.1,
-  },
-  row3: {
-    flexDirection: "row",
-    zIndex: 2,
-  },
-  row4: { flexDirection: "row", zIndex: 2 },
- 
 });
