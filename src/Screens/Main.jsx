@@ -4,7 +4,11 @@ import { ScreenAjustes } from "./Ajustes";
 import { ScreenInicio } from "./Inicio";
 import { CustomDrawer } from "../Componentes/CustomDrawer";
 import { ScreenPrimeraVez } from "./PrimeraVez";
+<<<<<<< Updated upstream
 
+=======
+import { ScreenNotificaciones } from "../Funciones/notificaciones";
+>>>>>>> Stashed changes
 const Drawer = createDrawerNavigator();
 export function Main() {
  
@@ -30,6 +34,11 @@ export function Main() {
         <Drawer.Screen name="ScreenInicio" component={ScreenInicio} />
         <Drawer.Screen name="ScreenAjustes" component={ScreenAjustes} />
         <Drawer.Screen name="ScreenLogin" component={ScreenAjustes} />
+<<<<<<< Updated upstream
+=======
+        <Drawer.Screen name="ScreenNotificaciones" component={ScreenNotificaciones}/>
+        <Drawer.Screen name="Login" component={ScreenPrimeraVez}/>
+>>>>>>> Stashed changes
       </Drawer.Navigator>
     </>
   );

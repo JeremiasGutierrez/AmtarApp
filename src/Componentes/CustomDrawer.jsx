@@ -1,8 +1,12 @@
 import { View, Text, ImageBackground, Image, Dimensions,StyleSheet} from "react-native";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
+<<<<<<< Updated upstream
 import { Entypo, Feather, Ionicons } from "@expo/vector-icons";
 import { ScreenAjustes } from "../Screens/Ajustes";
 import Constants from "expo-constants";
+=======
+import { Entypo, Feather, Ionicons, AntDesign } from "@expo/vector-icons";
+>>>>>>> Stashed changes
 import { Theme } from "../Theme";
 
 export function CustomDrawer(props) {
