@@ -2,9 +2,21 @@ import { useState, useEffect, useRef } from "react";
 import { Text, View, Button, Platform } from "react-native";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
+import Constants  from "expo-constants";
 import messaging from "@react-native-firebase/messaging";
 
 export function ScreenNotificaciones() {
+  const token= async()=>{
+    if (requestUserPermission()) {
+      messaging()
+        .getToken()
+        .then((t) => {
+          return t
+        });
+    } else {
+      console.log("error", authStatus);
+    }
+  }
   const requestUserPermission = async () => {
     const authStatus = await messaging().requestPermission();
     const enabled =
@@ -16,15 +28,7 @@ export function ScreenNotificaciones() {
     }
   };
   useEffect(() => {
-    if (requestUserPermission()) {
-      messaging()
-        .getToken()
-        .then((token) => {
-          console.log(token);
-        });
-    } else {
-      console.log("error", authStatus);
-    }
+    token()
     messaging()
       .getInitialNotification()
       .then(async (remoteMessage) => {
@@ -52,11 +56,15 @@ export function ScreenNotificaciones() {
 
     return unsubscribe;
   }, []);
-  return (
-   
-    <Text>
-      anda porfavor loco no te pido mucho
-    </Text>
-    
-  );
+
+  return ((
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-around' }}>
+      <Text>
+       {token()}
+      </Text>
+      <Text >
+      
+      </Text>
+    </View>
+  ))
 }

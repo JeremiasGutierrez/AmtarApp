@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
           alignItems: 'center',
     },
     colorMain:{
-      backgroundColor:Theme.main
+      backgroundColor:Theme.Dark
     },
     colorSecondary:{
       backgroundColor:Theme.secondary

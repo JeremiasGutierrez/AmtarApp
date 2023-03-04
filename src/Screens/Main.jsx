@@ -1,17 +1,12 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { View, Text } from "react-native";
+import { View, Text, Button } from "react-native";
 import { ScreenAjustes } from "./Ajustes";
 import { ScreenInicio } from "./Inicio";
 import { CustomDrawer } from "../Componentes/CustomDrawer";
 import { ScreenPrimeraVez } from "./PrimeraVez";
-<<<<<<< Updated upstream
-
-=======
-import { ScreenNotificaciones } from "../Funciones/notificaciones";
->>>>>>> Stashed changes
+import { Notificaciones, ScreenNotificaciones } from "../Funciones/notificaciones";
 const Drawer = createDrawerNavigator();
 export function Main() {
- 
   // if(miembro==="true") return (<ScreenLogin/>)
   return (
     <>
@@ -34,11 +29,8 @@ export function Main() {
         <Drawer.Screen name="ScreenInicio" component={ScreenInicio} />
         <Drawer.Screen name="ScreenAjustes" component={ScreenAjustes} />
         <Drawer.Screen name="ScreenLogin" component={ScreenAjustes} />
-<<<<<<< Updated upstream
-=======
         <Drawer.Screen name="ScreenNotificaciones" component={ScreenNotificaciones}/>
         <Drawer.Screen name="Login" component={ScreenPrimeraVez}/>
->>>>>>> Stashed changes
       </Drawer.Navigator>
     </>
   );

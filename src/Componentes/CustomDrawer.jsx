@@ -1,12 +1,8 @@
 import { View, Text, ImageBackground, Image, Dimensions,StyleSheet} from "react-native";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
-<<<<<<< Updated upstream
-import { Entypo, Feather, Ionicons } from "@expo/vector-icons";
+import { Entypo, Feather, Ionicons, AntDesign } from "@expo/vector-icons";
 import { ScreenAjustes } from "../Screens/Ajustes";
 import Constants from "expo-constants";
-=======
-import { Entypo, Feather, Ionicons, AntDesign } from "@expo/vector-icons";
->>>>>>> Stashed changes
 import { Theme } from "../Theme";
 
 export function CustomDrawer(props) {
@@ -23,8 +19,9 @@ export function CustomDrawer(props) {
         <Image
           style={{
             width: 120,
-            height: 120,
+            height: 110,
             margin: 50,
+            borderRadius: 400/ 2
           }}
           source={require("../Imagenes/yo.jpeg")}
         />
@@ -58,6 +55,28 @@ export function CustomDrawer(props) {
           label="Ajustes"
           onPress={() => {
             props.navigation.navigate("ScreenAjustes");
+          }}
+        />
+         <DrawerItem
+          style={{ width: "80%", alignSelf: "center" }}
+          icon={({ color, size }) => (
+            <Ionicons name="notifications" size={35} color={Theme.Blanco} />
+          )}
+          labelStyle={{ fontSize: 23, color: Theme.Blanco }}
+          label="Notificaciones"
+          onPress={() => {
+            props.navigation.navigate("ScreenNotificaciones");
+          }}
+        />
+         <DrawerItem
+          style={{ width: "80%", alignSelf: "center" }}
+          icon={({ color, size }) => (
+            <AntDesign name="login" size={24} color={Theme.Blanco} />
+          )}
+          labelStyle={{ fontSize: 23, color: Theme.Blanco }}
+          label="Login"
+          onPress={() => {
+            props.navigation.navigate("Login");
           }}
         />
       </View>

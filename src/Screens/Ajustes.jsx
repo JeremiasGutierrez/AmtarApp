@@ -4,7 +4,7 @@ export function ScreenAjustes(){
     return(
         <TouchableOpacity style={styles.bodyText}>
             <Text style={{marginTop:Constats.statusBarHeight}}>
-                    Ola chino 
+                    Ajustes
             </Text>
 
         </TouchableOpacity>

@@ -7,16 +7,19 @@ import {
   PixelRatio,
   ImageBackground,
 } from "react-native";
-import { estilo } from "../Screens/Perfil/StyleSheetInicio.jsx";
-import { data } from "../Funciones/apiRequest.js";
+import { estilo } from "./StyleSheetInicio.jsx";
+import { usersData } from "../Funciones/apiRequest.js";
 import { LogoText } from "./LogoText.jsx";
 import { FirmaText } from "./FirmaText.jsx";
 import { Sellos } from "./Sellos.jsx";
 export function ScreenTarjetaAzul() {
-  const obj = data();
+  const {
+    data,
+    loading,
+  } = usersData();
 
   return (
-    obj !== undefined && (
+     (
       <TouchableOpacity style={estilo.container}>
         <ImageBackground
           source={require("../Imagenes/fondo.png")}
@@ -43,14 +46,14 @@ export function ScreenTarjetaAzul() {
             }}
           ></View>
           <View style={estilo.row}>
-            <Text style={estilo.textoResaltado}>{obj.Apenom}</Text>
+            <Text style={estilo.textoResaltado}>{data.Apenom}</Text>
           </View>
           <View
             style={[estilo.row, { top: Dimensions.get("window").height / 6.4 }]}
           >
-            <Text style={estilo.textoResaltado}>{obj.Fechanac}</Text>
+            <Text style={estilo.textoResaltado}>{data.Fechanac}</Text>
             <Text style={estilo.textoResaltado}>Mar del plata</Text>
-            <Text style={estilo.textoResaltado}>{obj.Nafiliado}</Text>
+            <Text style={estilo.textoResaltado}>{data.Nafiliado}</Text>
           </View>
           <View
             style={[estilo.row, { top: Dimensions.get("window").height / 5.4 }]}
@@ -64,7 +67,7 @@ export function ScreenTarjetaAzul() {
           >
             <Text style={estilo.textoResaltado}>FechadelOtro</Text>
             <Text style={estilo.textoResaltado}>Titular</Text>
-            <Text style={estilo.textoResaltado}>{obj.Badocnumdo}</Text>
+            <Text style={estilo.textoResaltado}>{data.Badocnumdo}</Text>
           </View>
           <View
             style={[
@@ -75,7 +78,7 @@ export function ScreenTarjetaAzul() {
               },
             ]}
           >
-            <Text style={estilo.textoNormal}>FechaNac</Text>
+            <Text style={estilo.textoNormal}>Ingreso</Text>
             <Text style={estilo.textoNormal}>Parentesco</Text>
             <Text style={estilo.textoNormal}>Doc</Text>
           </View>
