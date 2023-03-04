@@ -21,11 +21,6 @@
       "supportsTablet": true
     },
     "android": {
-<<<<<<< Updated upstream
-=======
-      "googleServicesFile":"./google-services.json",
-      "usesCleartextTraffic": true,
->>>>>>> Stashed changes
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -33,17 +28,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-<<<<<<< Updated upstream
-=======
-    },
-    "extra": {
-      "APIURL":"osarpyh-testint.dyndns.org/wsvalidaafi2/apiafi.php?numdoc=",
-      "AUTHTOKEN":"AAAAG5TL93Y:APA91bEoTvej3MtpTF0WGjfZf91a52w4hmctzQvxAzfj0uPqnorolL7gvjz5rn8aiqAgat6pU8Ntes2tF-Cn1iqIp4Gy4-YSG48m877RyOv-LDkfDRGqB8xzm76AGPG-AS-zU5-8-oNp",
-
-      "eas": {
-        "projectId": "938fbcb3-7d31-4929-a413-e5af95f7e954"
-      }
->>>>>>> Stashed changes
     }
   }
 }
