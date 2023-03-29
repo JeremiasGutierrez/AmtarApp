@@ -1,0 +1,101 @@
+{
+  "project_info": {
+    "project_number": "118460512118",
+    "firebase_url": "https://amtarnoti-default-rtdb.firebaseio.com",
+    "project_id": "amtarnoti",
+    "storage_bucket": "amtarnoti.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118460512118:android:6ba10615684cd98c7c6c57",
+        "android_client_info": {
+          "package_name": "com.corvoebrietas.Amtar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "118460512118-278du61vp9pavbaal2drtfc23ntpl1ka.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.corvoebrietas.Amtar",
+            "certificate_hash": "864eee51b17bc93bea7931d20575e3714178374c"
+          }
+        },
+        {
+          "client_id": "118460512118-ilk2p1afglmu65o8mdgbdk6ke7a3heok.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.corvoebrietas.Amtar",
+            "certificate_hash": "383370699e055ce414468f8606b834db353bc6d6"
+          }
+        },
+        {
+          "client_id": "118460512118-g5llssnceomkoneq81be50ck3ih69nd6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdviPVru8JFeCNLJb8MUG4bNosoXUeeYw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "118460512118-g5llssnceomkoneq81be50ck3ih69nd6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118460512118:android:cfaf4a8b2b589b137c6c57",
+        "android_client_info": {
+          "package_name": "com.corvoebrietas.Final"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "118460512118-1djfjkslovumshofl3uc2fhc1pnjplp5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.corvoebrietas.Final",
+            "certificate_hash": "0d2102721a43a1c67738801611af701e47f8801a"
+          }
+        },
+        {
+          "client_id": "118460512118-jdoa59p5ard7o9eg0hflcceqr6vefers.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.corvoebrietas.Final",
+            "certificate_hash": "6036f97617b40f3a920eedbc649afb097637de86"
+          }
+        },
+        {
+          "client_id": "118460512118-g5llssnceomkoneq81be50ck3ih69nd6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdviPVru8JFeCNLJb8MUG4bNosoXUeeYw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "118460512118-g5llssnceomkoneq81be50ck3ih69nd6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

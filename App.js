@@ -1,20 +1,43 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import { BottomTab } from "./src/Componentes/BottomTab";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { LoginScreen } from "./src/Screens/Login";
+import { ScreenPrimeraVez } from "./src/Screens/PrimeraVez";
+import { ScreenInicio } from "./src/Screens/Inicio";
+import * as ScreenOrientation from "expo-screen-orientation";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+const Stack = createNativeStackNavigator();
+async function changeScreenOrientation() {
+  await ScreenOrientation.lockAsync(
+    ScreenOrientation.OrientationLock.LANDSCAPE
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+changeScreenOrientation();
+export function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Inicio">
+        <Stack.Screen
+          name="BottomTab"
+          component={BottomTab}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ScreenInicio"
+          component={ScreenInicio}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Inicio"
+          component={ScreenPrimeraVez}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
