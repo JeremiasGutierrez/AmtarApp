@@ -10,6 +10,7 @@ export const estilo = StyleSheet.create({
     alignSelf: "center",
     top: Dimensions.get("window").height / 8,
   },
+ 
   row: {
     left: 10,
     flex: 1,

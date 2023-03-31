@@ -7,17 +7,33 @@ import FlipCard from "react-native-flip-card";
 import { Theme } from "../Theme.jsx";
 import firestore from "@react-native-firebase/firestore";
 import { todosTopic, blueTopic, createUser } from "../Funciones/firebaseAPI";
+import * as ScreenOrientation from "expo-screen-orientation";
+import { useEffect, useState } from "react";
+
 export function ScreenTarjetaAzul({ data, Marca }) {
+  useEffect(() => {
+    async function changeScreenOrientation() {
+      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.ALL);
+    }
+    return () => {
+      ScreenOrientation.unlockAsync();
+    };
+  }, []);
+
   const datoDni = data.Badocnumdo;
   const datoNombre = data.Apenom;
   const setTopics = async () => {
-    const user = await firestore().collection("Usuarios").doc(datoDni).get();
-    if (user.exists) {
-      todosTopic(user.data());
-      blueTopic(user.data());
-    } else {
-      createUser(user, datoDni, datoNombre);
-      setTopics();
+    try {
+      const user = await firestore().collection("Usuarios").doc(datoDni).get();
+      if (user.exists) {
+        todosTopic(user.data());
+        blueTopic(user.data());
+      } else {
+        createUser(user, datoDni, datoNombre);
+        setTopics();
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
   let sellos;
@@ -146,7 +162,7 @@ export function ScreenTarjetaAzul({ data, Marca }) {
           <Image
             source={require("../Imagenes/AMTARCELESTE.png")}
             style={{
-              height: Dimensions.get("window").height / 3.2,
+              height: Dimensions.get("window").height / 2.9,
               width: Dimensions.get("window").width / 1.1,
               top: Dimensions.get("window").height / 60,
               backgroundColor: Theme.Blanco,

@@ -1,7 +1,7 @@
 import messaging from "@react-native-firebase/messaging";
 import firestore from "@react-native-firebase/firestore";
 export const todosTopic = (user) => {
-  if (!user.Plan.todos) {
+  if (user && user.Plan && !user.Plan.todos) {
     messaging()
       .subscribeToTopic("Todos")
       .then(() => {
@@ -16,7 +16,7 @@ export const todosTopic = (user) => {
 };
 
 export const whiteTopic = (user) => {
-  if (!user.Plan.subBlanca) {
+  if (user && user.Plan && !user.Plan.subBlanca) {
     messaging()
       .subscribeToTopic("SubBlanco")
       .then(() => {
@@ -30,7 +30,7 @@ export const whiteTopic = (user) => {
   }
 };
 export const blueTopic = (user) => {
-  if (!user.Plan.subBlanca) {
+  if (user && user.Plan && !user.Plan.subAzul) {
     messaging()
       .subscribeToTopic("TarjetaAzul")
       .then(() => {

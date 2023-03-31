@@ -7,18 +7,35 @@ import FlipCard from "react-native-flip-card";
 import firestore from "@react-native-firebase/firestore";
 import { Theme } from "../Theme";
 import { todosTopic, whiteTopic, createUser } from "../Funciones/firebaseAPI";
+import { useEffect } from "react";
+import * as ScreenOrientation from "expo-screen-orientation";
+
 export function ScreenTarjetaBlanca({ data, Marca }) {
+  useEffect(() => {
+    async function changeScreenOrientation() {
+      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.ALL);
+    }
+    changeScreenOrientation();
+    return () => {
+      ScreenOrientation.unlockAsync();
+    };
+  }, []);
+
   const datoDni = data.Badocnumdo;
   const datoNombre = data.Apenom;
 
   const setTopics = async () => {
-    const user = await firestore().collection("Usuarios").doc(datoDni).get();
-    if (user.exists) {
-      todosTopic(user.data());
-      whiteTopic(user.data());
-    } else {
-      createUser(user, datoDni, datoNombre);
-      setTopics();
+    try {
+      const user = await firestore().collection("Usuarios").doc(datoDni).get();
+      if (user.exists) {
+        todosTopic(user.data());
+        whiteTopic(user.data());
+      } else {
+        createUser(user, datoDni, datoNombre);
+        setTopics();
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
   let sellos;
@@ -132,18 +149,18 @@ export function ScreenTarjetaBlanca({ data, Marca }) {
         </View>
       </View>
 
-      <View style={estilo.containerTarjetaBlanca}>
+      <View style={[estilo.containerTarjetaBlanca]}>
         <Image
           source={require("../Imagenes/AMTARBLANCO.png")}
           style={{
-            height: Dimensions.get("window").height / 3.2,
-            width: Dimensions.get("window").width / 1.1,
+            height: Dimensions.get("window").height / 3.3,
+            width: "100%",
+            resizeMode: "contain",
             top: Dimensions.get("window").height / 60,
             backgroundColor: Theme.Blanco,
-            borderRadius: 10,
+
             alignSelf: "center",
           }}
-          resizeMode="cover"
         />
       </View>
     </FlipCard>

@@ -8,8 +8,22 @@ import {
 } from "react-native";
 import { ScreenCustom } from "../Componentes/ScreenCustom";
 import { useNavigation } from "@react-navigation/native";
+import * as ScreenOrientation from "expo-screen-orientation";
+import { useEffect } from "react";
+
 
 export function ScreenPrimeraVez() {
+  useEffect(() => {
+    async function changeScreenOrientation() {
+      await ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.PORTRAIT
+      );
+    }
+    changeScreenOrientation();
+    return () => {
+      ScreenOrientation.unlockAsync();
+    };
+  }, []);
   const navigation = useNavigation();
   return (
     <ScreenCustom color="Dark">
