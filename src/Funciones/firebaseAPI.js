@@ -18,7 +18,7 @@ export const todosTopic = (user) => {
 export const whiteTopic = (user) => {
   if (user && user.Plan && !user.Plan.subBlanca) {
     messaging()
-      .subscribeToTopic("SubBlanco")
+      .subscribeToTopic("TarjetaBlanca")
       .then(() => {
         firestore().collection("Usuarios").doc(user.DNI).update({
           "Plan.subBlanca": true,
@@ -43,22 +43,44 @@ export const blueTopic = (user) => {
       });
   }
 };
-export const createUser = (user, datoDni, datoNombre) => {
+export const createUser = async (user, datoDni, datoNombre,telefono,img,email,userID) => {
   if (!user.exists) {
-    messaging()
-      .getToken()
-      .then((token) => {
-        firestore()
-          .collection("Usuarios")
-          .doc(datoDni)
-          .set({
-            Token: token,
-            DNI: datoDni,
-            Nombre: datoNombre,
-            Plan: { todos: false, subBlanca: false, subAzul: false },
-          });
+   await messaging()
+   .getToken()
+   .then(async (token) => {
+    console.log(token);
+    const userRef = firestore().collection("Usuarios").doc(datoDni);
+    const docSnapshot = await userRef.get();
+    if (docSnapshot.exists) {
+      console.log("El usuario ya existe"); 
+    } else {
+      userRef.set({
+        Token: token,
+        DNI: datoDni,
+        Nombre: datoNombre,
+        Plan: { todos: false, subBlanca: false, subAzul: false },
+        DownloadUrl:img,
+        Telefono:telefono,
+        Email:email, 
+      })
+      .then(() => {
+        console.log("usuario creado")
+      })
+      .catch((error) => {
+        console.error('Error adding document:', error);
       });
+    }
+  });
     return true;
   }
   return false;
+};
+export const getUserImg = async (user) => {
+  if (user && user.DNI) {
+    console.log(await firestore().collection("Usuarios").doc(user.DNI).get());
+    return await firestore()
+      .collection("Usuarios")
+      .doc(user.DNI)
+      .get({ downloadUrl });
+  }
 };

@@ -1,5 +1,6 @@
 import { View, StyleSheet, Dimensions, PixelRatio, Image } from "react-native";
 export function Sellos() {
+
   return (
     <View
       style={{

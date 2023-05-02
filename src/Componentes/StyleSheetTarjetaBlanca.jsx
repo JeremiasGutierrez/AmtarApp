@@ -10,7 +10,54 @@ export const estilo = StyleSheet.create({
     alignSelf: "center",
     top: Dimensions.get("window").height / 8,
   },
- 
+  imagenFotoVertical: {
+    width: Dimensions.get("window").height / 6.5,
+    height: Dimensions.get("window").width / 3.2,
+    borderRadius: 4,
+    top: Dimensions.get("window").height / 8.7,
+    left:Dimensions.get("window").height / 3.68, 
+    position:"absolute",
+  },
+  imagenFotoHorizontal: {
+    width: Dimensions.get("window").height / 6.5,
+    height: Dimensions.get("window").width / 3.2,
+    borderRadius: 4,
+    top: Dimensions.get("window").height / 8.7,
+    left:Dimensions.get("window").height / 3.68, 
+    position:"absolute",
+  },
+  containerLandscape: {
+    height: Dimensions.get("window").height / 3,
+    width: Dimensions.get("window").width / 1.1,
+    backgroundColor: Theme.Blanco,
+    borderRadius: 10,
+    alignSelf: "center",
+    top: Dimensions.get("window").height / 20,
+  },
+  linea: {
+    height: 2,
+    width: "100%",
+    backgroundColor: "black",
+    marginVertical: 15,
+    bottom: 35,
+  },
+
+  revezVertical: {
+    height: Dimensions.get("window").height / 3.3,
+    width: "100%",
+    resizeMode: "contain",
+    top: Dimensions.get("window").height / 60,
+    backgroundColor: Theme.Blanco,
+    alignSelf: "center",
+  },
+  revezHorizontal: {
+    height: Dimensions.get("window").height / 3.3,
+    width: "100%",
+    resizeMode: "contain",
+    top: Dimensions.get("window").height / 60,
+    backgroundColor: Theme.Blanco,
+    alignSelf: "center",
+  },
   row: {
     left: 10,
     flex: 1,
@@ -21,6 +68,18 @@ export const estilo = StyleSheet.create({
     flexWrap: "wrap",
     position: "absolute",
     top: Dimensions.get("window").height / 8,
+    width: Dimensions.get("window").width / 1,
+  },
+  rowLandscape: {
+    left: 10,
+    flex: 1,
+    padding: 0,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    rowGap: 3,
+    flexWrap: "wrap",
+    position: "absolute",
+    top: Dimensions.get("window").height / 4,
     width: Dimensions.get("window").width / 1,
   },
   textoResaltado: {
@@ -50,7 +109,6 @@ export const estilo = StyleSheet.create({
     fontSize: Dimensions.get("window").height / 15,
     zIndex: 2,
     position: "absolute",
-    
   },
   imagen: {
     height: Dimensions.get("window").height / 12,
@@ -62,7 +120,7 @@ export const estilo = StyleSheet.create({
     bottom: 25,
     fontWeight: "bold",
   },
-  dorado:{
-    color:Theme.Dorado
-  }
+  dorado: {
+    color: Theme.Dorado,
+  },
 });

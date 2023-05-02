@@ -2,8 +2,6 @@ import { View } from "react-native";
 import { Theme } from "../Theme";
 import { ScreenTarjetaAzul } from "../Componentes/TarjetaAzul";
 import { ScreenTarjetaBlanca } from "./../Componentes/TarjetaBlanca";
-import { NavigationContainer } from "@react-navigation/native";
-
 export function ScreenInicio({ route }) {
   const { otherParam } = route.params;
   const numeroTitular = otherParam.Nafititu;

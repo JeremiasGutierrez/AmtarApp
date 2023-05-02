@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Final",
+    "name": "AmtarApp",
     "slug": "Final",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -32,7 +32,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.corvoebrietas.Final"
+      "package": "com.corvoebrietas.Amtar"
     },
     "web": {
       "favicon": "./assets/favicon.png"

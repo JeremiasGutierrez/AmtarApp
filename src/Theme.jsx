@@ -3,5 +3,6 @@ export const Theme={
     Azul:'blue',
     Blanco:'#e0dcdc',
     TarjetaAzul:'#2596be',
-    Dorado:'#CFA01A'
+    Dorado:'#CFA01A',
+    Pago:'#0464B0'
 }

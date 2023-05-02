@@ -1,9 +1,11 @@
 import { View, Image, Text, StyleSheet, Dimensions } from "react-native";
 
-export function FirmaText() {
+export function FirmaText(props) {
+
+
   return (
     <View>
-      <Text style={estilo.texto}>Presidente AMTAR</Text>
+      <Text style={ [estilo.texto,props.isPortrait ? " " : {fontSize:10,left:Dimensions.get("window").width / 6.5}]}>Presidente AMTAR</Text>
 
       <Image
         source={require("../Imagenes/Firma.png")}

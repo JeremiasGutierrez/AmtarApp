@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Dimensions,
   Image,
+  Text
 } from "react-native";
 import { usersData } from "../Funciones/apiRequest";
 import { useNavigation } from "@react-navigation/native";
@@ -15,7 +16,10 @@ export function LoginScreen() {
   const [dni, setDni] = useState("");
   const { data, loading } = usersData(dni);
   const navigation = useNavigation();
-
+  let disabled=true
+  let adviceError
+  data.hasOwnProperty("Nafiliado") && !loading ? disabled=false :  adviceError=<Text style={{color:"red"}}>Ingrese DNI valido</Text>
+  
   return (
     <View style={{ backgroundColor: Theme.Dark, height: "100%" }}>
       <Image
@@ -27,20 +31,24 @@ export function LoginScreen() {
       <View style={estilo.view}>
         <TextInput
           value={dni}
-          onChangeText={setDni}
+          onChangeText={text =>setDni(text.replace(/\s/g, ''))}
           placeholder="Ingresa tu DNI"
           placeholderTextColor={"white"}
           style={[estilo.ingresar, estilo.color]}
+          keyboardType={"numeric"}
         />
         <Button
           title="Buscar"
           color={"#BCB36E"}
           onPress={() => {
-            navigation.navigate("BottomTab", { otherParam: data });
+            
+            navigation.navigate("IngresarDatos", { otherParam: data });
           }}
-          disabled={loading}
+          disabled={disabled}
         />
+        {adviceError}
       </View>
+      
       <Image
         source={require("../Imagenes/AmtarLogo.png")}
         style={estilo.imagen}

@@ -5,7 +5,7 @@ import { ApiInfo } from "@env";
 export const usersData = (dni) => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
-
+  let error
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -13,7 +13,7 @@ export const usersData = (dni) => {
         const { data: response } = await axios.get(`${ApiInfo}${dni}&entidad=1`);
         setData(response);
       } catch (error) {
-        console.error(error.message);
+        error=error.message
       }
       setLoading(false);
     };
@@ -22,6 +22,6 @@ export const usersData = (dni) => {
       fetchData();
     }
   }, [dni]);
-
-  return { data, loading };
+  return {data, loading}
+  
 };

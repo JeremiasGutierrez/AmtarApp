@@ -3,7 +3,25 @@ import { ScrollView } from "react-native-gesture-handler";
 import { ScreenTarjetaAzul } from "../Componentes/TarjetaAzul";
 import { Theme } from "../Theme";
 import { ScreenTarjetaBlanca } from "./../Componentes/TarjetaBlanca";
+import * as ScreenOrientation from "expo-screen-orientation";
+import { useEffect, useState, useCallback, componentDidMount } from "react";
 export function NodoFamiliar({ route }) {
+  
+  useState(() => {
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+  }, []);
+  useEffect(() => {
+    const allowScreenOrientation = async () => {
+      await ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.PORTRAIT_UP | 
+        ScreenOrientation.OrientationLock.LANDSCAPE
+
+      );
+    };
+
+    allowScreenOrientation();
+    ScreenOrientation.unlockAsync();
+  }, []);
   const { otherParam } = route.params;
   const marca = otherParam.grupoFamiliar[0].Marca[0].baafmcodig;
   let screen = [];
