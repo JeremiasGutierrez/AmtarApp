@@ -9,12 +9,13 @@ import { todosTopic, whiteTopic, createUser } from "../Funciones/firebaseAPI";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { useEffect, useState, useCallback } from "react";
 import { usePreventScreenCapture } from "expo-screen-capture";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export function ScreenTarjetaBlanca({ data, Marca }) {
   usePreventScreenCapture();
   const [isPortrait, setIsPortrait] = useState(true);
   const [img, setImg] = useState("");
-  const datoDni = data.Badocnumdo; 
+  const datoDni = data.Badocnumdo;
   const handleOrientationChange = useCallback(
     ({ orientationInfo }) => {
       if (
@@ -34,20 +35,22 @@ export function ScreenTarjetaBlanca({ data, Marca }) {
     const obtenerDatos = async () => {
       try {
         await firestore()
-        .collection("Usuarios")
-        .doc(datoDni)
-        .get().then((data) => {
-          setImg(data.data().DownloadUrl);  
-        }).catch((error) => { 
-          console.log(error);
-        });;
+          .collection("Usuarios")
+          .doc(datoDni)
+          .get()
+          .then((data) => {
+            setImg(data.data().DownloadUrl);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } catch (error) {
         console.error("Error al obtener datos:", error);
       }
     };
     obtenerDatos();
   }, [datoDni]);
-  const sourceImage=img !== "" ? { uri: img } : null;
+  const sourceImage = img !== "" ? { uri: img } : null;
   useEffect(() => {
     const allowScreenOrientation = async () => {
       await ScreenOrientation.lockAsync(
@@ -67,7 +70,6 @@ export function ScreenTarjetaBlanca({ data, Marca }) {
       );
     };
   }, [handleOrientationChange]);
-
 
   const datoNombre = data.Apenom;
 
@@ -93,27 +95,92 @@ export function ScreenTarjetaBlanca({ data, Marca }) {
         <Text></Text>
       </View>
     );
-  let mensajeError =
+    let mensajeError =
     Marca && "MO1" === Marca.trim() ? (
-      <View>
+      <TouchableOpacity style={estilo.expiradoContainer}>
+        <MaterialIcons
+          name="error"
+          size={50}
+          color={"white"}
+          style={estilo.loguito}
+        />
         <Text>Servicio restingido. Comuniquese con AMTAR</Text>
-      </View>
+      </TouchableOpacity>
     ) : (
-      <View>
-        <Text></Text>
-      </View>
+      null
+    );
+    let moroso2= 
+      Marca && ["MO2"].includes(Marca.trim()) ? (
+        <TouchableOpacity style={estilo.expiradoContainer}>
+        <MaterialIcons
+          name="error"
+          size={50}
+          color={"white"}
+          style={estilo.loguito}
+        />
+        <Text>
+          Servicio Limitado. Comuniquese con AMTAR (0223) 473-3351/475-1514.
+          Usted solo cuenta con el Programa medico obligatorio
+        </Text>
+      </TouchableOpacity>
+      
+    ) : (
+      null
     );
   let servicioLimitado =
-    Marca && ["MO2", "MO3"].includes(Marca.trim()) ? (
-      <View>
-        <Text>Servicio Limitado. Comuniquese con AMTAR</Text>
-      </View>
+    Marca && ["MO3"].includes(Marca.trim()) ? (
+      
+      <TouchableOpacity style={estilo.expiradoContainer}>
+        <MaterialIcons
+          name="error"
+          size={50}
+          color={"white"}
+          style={estilo.loguito}
+        />
+        <Text>
+          Servicio Limitado. Comuniquese con AMTAR (0223) 473-3351/475-1514
+        </Text>
+      </TouchableOpacity>
+      
     ) : (
-      <View>
-        <Text></Text>
-      </View>
+      null
     );
+  
+    const expiredDate=()=>{
+      if(data.hasOwnProperty("FecVen")&&new Date(data.FecVen[0].bagfmfevto)<Date.now()){ 
+        return data.FecVen
+      }
+      return null
+    }
+ 
   setTopics();
+  if(expiredDate()!==null){ 
+    return( 
+    <View>
+        <TouchableOpacity style={estilo.expiradoContainer}>
+          <MaterialIcons
+            name="error"
+            size={50}
+            color={"white"}
+            style={estilo.loguito}
+          />
+          <Text
+            style={{ color: Theme.Blanco, textAlign: "center", fontSize: 20 }}
+          >
+            Servicio expirado. Comuniquese con AMTAR (0223) 473-3351/475-1514.
+            DNI: {datoDni}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }else if(mensajeError!==null){
+    return(
+      <View>
+        <Text style={{color:Theme.Blanco,textAlign:"center", fontSize:20}}>{mensajeError}</Text>
+      </View>
+    )
+  }
+  else{
     return (
       <FlipCard flipVertical={false} flipHorizontal={true}>
         <View
@@ -210,6 +277,9 @@ export function ScreenTarjetaBlanca({ data, Marca }) {
               <FirmaText isPortrait={isPortrait} />
             </View>
           </View>
+          <View>
+                {servicioLimitado!==null ? servicioLimitado : moroso2 !==null ? moroso2 : "" }
+            </View>
         </View>
   
         <View
@@ -225,13 +295,16 @@ export function ScreenTarjetaBlanca({ data, Marca }) {
           />
           <Image
             source={sourceImage}
-            style={[isPortrait ? estilo.imagenFotoVertical : estilo.imagenFotoHorizontal]}
+            style={[
+              isPortrait
+                ? estilo.imagenFotoVertical
+                : estilo.imagenFotoHorizontal,
+            ]}
             resizeMode="contain"
           />
         </View>
       </FlipCard>
     );
-    
   }
-
  
+}

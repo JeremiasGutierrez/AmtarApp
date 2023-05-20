@@ -6,7 +6,11 @@ import {
   View,
 } from "react-native";
 import Auth, { firebase } from "@react-native-firebase/auth";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  AntDesign,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { Theme } from "../Theme";
 import { useNavigation } from "@react-navigation/native";
 export function ScreenAjustes() {
@@ -14,7 +18,7 @@ export function ScreenAjustes() {
   const cerrarSesion = async () => {
     try {
       await Auth().signOut();
-      navigation.navigate("IniciarSesion")
+      navigation.navigate("IniciarSesion");
     } catch (error) {
       alert(message.error);
     }
@@ -30,12 +34,20 @@ export function ScreenAjustes() {
           style={styles.loguito}
         />
       </TouchableOpacity>
-     
-      <TouchableOpacity style={styles.botonIniciar} onPress={()=>{
-        navigation.navigate('cambiarEmail')
-      }}>
+
+      <TouchableOpacity
+        style={styles.botonIniciar}
+        onPress={() => {
+          navigation.navigate("cambiarEmail");
+        }}
+      >
         <Text style={styles.crearText}>Cambiar email</Text>
-        <MaterialCommunityIcons name="email-edit" size={50} color="black" style={styles.loguito} />
+        <MaterialCommunityIcons
+          name="email-edit"
+          size={50}
+          color="black"
+          style={styles.loguito}
+        />
       </TouchableOpacity>
     </View>
   );
@@ -44,9 +56,9 @@ const styles = StyleSheet.create({
   fondo: {
     backgroundColor: Theme.Dark,
     height: "100%",
-    flex:1,
-    flexDirection: 'column',
-    justifyContent: 'space-evenly',
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "space-evenly",
     paddingHorizontal: 0,
   },
 
@@ -55,6 +67,13 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     position: "absolute",
     left: Dimensions.get("window").width / 70,
+  },
+  loguito2: {
+    height: Dimensions.get("window").height / 5,
+    alignSelf: "center",
+    position: "absolute",
+    bottom: -Dimensions.get("window").height / 12,
+    // left: Dimensions.get("window").width / 70,
   },
   botonIniciar: {
     height: Dimensions.get("window").height / 15,

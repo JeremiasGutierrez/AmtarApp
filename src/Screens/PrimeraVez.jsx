@@ -10,25 +10,22 @@ import { ScreenCustom } from "../Componentes/ScreenCustom";
 import { useNavigation } from "@react-navigation/native";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { useEffect } from "react";
-import messaging from "@react-native-firebase/messaging";
 import { Theme } from "../Theme";
+import { PermissionsAndroid } from "react-native";
+import messaging from "@react-native-firebase/messaging";
 
 export function ScreenPrimeraVez() {
-  useEffect(() => {
-    const requestUserPermission = async () => {
-      const authStatus = await messaging().requestPermission();
+  async function requestUserPermission() {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
-      const enabled =
-        authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-        authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
-      if (enabled) {
-        console.log("Authorization status:", authStatus);
-      }
-    };
-
-    requestUserPermission();
-  }, []);
+    if (enabled) {
+      console.log("Authorization status:", authStatus);
+    }
+  }
+  requestUserPermission();
 
   useEffect(() => {
     async function changeScreenOrientation() {
@@ -53,14 +50,14 @@ export function ScreenPrimeraVez() {
       <View style={estilo.contenedorBtn}>
         <Pressable
           style={estilo.container}
-          onPress={() => navigation.navigate("LoginScreen")}  
+          onPress={() => navigation.navigate("LoginScreen")}
         >
           <Text style={estilo.texto}>Crear cuenta</Text>
         </Pressable>
       </View>
       <View style={estilo.contenedorBtn}>
         <Pressable
-          style={[estilo.container,estilo.colorIniciar]}
+          style={[estilo.container, estilo.colorIniciar]}
           onPress={() => navigation.navigate("IniciarSesion")}
         >
           <Text style={estilo.texto}>Iniciar Sesión</Text>
@@ -93,7 +90,7 @@ const estilo = StyleSheet.create({
     top: -Dimensions.get("window").height / 6.5,
   },
   colorIniciar: {
-    backgroundColor:Theme.Dorado
+    backgroundColor: Theme.Dorado,
   },
   texto: {
     fontSize: 25,

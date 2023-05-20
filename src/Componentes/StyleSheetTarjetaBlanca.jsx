@@ -1,5 +1,4 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { color } from "react-native-reanimated";
 import { Theme } from "../Theme";
 export const estilo = StyleSheet.create({
   containerTarjetaBlanca: {
@@ -15,15 +14,30 @@ export const estilo = StyleSheet.create({
     height: Dimensions.get("window").width / 3.2,
     borderRadius: 4,
     top: Dimensions.get("window").height / 8.7,
-    left:Dimensions.get("window").height / 3.68, 
+    left:Dimensions.get("window").height / 3.67, 
     position:"absolute",
+  },
+  loguito: {
+    height: Dimensions.get("window").height / 5,
+    alignSelf: "center",
+    position: "absolute",
+    bottom: -Dimensions.get("window").height / 35,
+  },
+  expiradoContainer: {
+    marginTop: 20,
+    width: "100%",
+    padding: 13,
+    alignItems: "center",
+    alignSelf: "center",
+    borderRadius: 5,
+    backgroundColor: Theme.Rojo,
   },
   imagenFotoHorizontal: {
     width: Dimensions.get("window").height / 6.5,
     height: Dimensions.get("window").width / 3.2,
     borderRadius: 4,
     top: Dimensions.get("window").height / 8.7,
-    left:Dimensions.get("window").height / 3.68, 
+    left:Dimensions.get("window").height / 3.67, 
     position:"absolute",
   },
   containerLandscape: {

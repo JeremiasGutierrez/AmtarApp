@@ -12,35 +12,68 @@ import auth from "@react-native-firebase/auth";
 import { useNavigation } from "@react-navigation/native";
 import { Theme } from "../Theme";
 import { usersData } from "../Funciones/apiRequest";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import firestore from "@react-native-firebase/firestore";
+import messaging from "@react-native-firebase/messaging";
 export function IniciarSesion() {
+  
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [dni, setDni] = useState("");
   const navigation = useNavigation();
   const { data, loading } = usersData(dni.trim());
-
+  const user = auth().currentUser;
+  const [tokenPersona, setTokenPersona] = useState(null);
   const handleLogin = async () => {
-    auth()
-      .signInWithEmailAndPassword(email, password)
+    try {
+      await messaging().registerDeviceForRemoteMessages();
+      messaging().onTokenRefresh((newToken) => {
+        firestore()
+          .collection('Usuarios')
+          .doc(dni)
+          .update({
+            Token: newToken,
+          })
+          .then(() => {
+            console.log('User updated!');
+          });
+      });
+    } catch (error) {
+      alert('OWO?', error.message);
+    }
+   await user
+      .reload()
       .then(() => {
-        if (!loading) {
-          firestore()
-            .collection("Usuarios")
-            .doc(data.Badocnumdo)
-            .get()
-            .then((doc) => {
-              if (doc.data().Email === email) {
-                navigation.navigate("BottomTab", { otherParam: data });
-              } else {
-                alert("Email o contraseña incorrectos");
+        if (user.emailVerified) {
+          auth()
+            .signInWithEmailAndPassword(email, password)
+            .then(() => {
+              if (!loading) {
+                firestore()
+                  .collection("Usuarios")
+                  .doc(data.Badocnumdo)
+                  .get()
+                  .then((doc) => {
+                    if (doc.data().Email === email) {
+                      navigation.navigate("BottomTab", { otherParam: data });
+                    } else {
+                      alert("Email o contraseña incorrectos");
+                    }
+                  });
               }
+            })
+            .catch((error) => {
+              alert("Email o contraseña incorrectos");
             });
+        }
+        else {
+         
+          alert("Verifique su Email porfavor!");
         }
       })
       .catch((error) => {
-        alert("Email o contraseña incorrectos");
+        alert(error);
       });
   };
 
@@ -91,6 +124,20 @@ export function IniciarSesion() {
             style={estilo.loguito}
           />
         </TouchableOpacity>
+        { <TouchableOpacity
+          style={estilo.botonIniciar}
+          onPress={async () => {
+            await user.sendEmailVerification();
+          }}
+        >
+          <Text style={estilo.crearText}>Enviar Correo de verificacion</Text>
+          <MaterialIcons
+            name="verified"
+            size={50}
+            color="black"
+            style={estilo.loguito}
+          />
+        </TouchableOpacity> }
       </View>
     </View>
   );

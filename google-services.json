@@ -6,11 +6,15 @@
   },
   "client": [
     {
+      "notification":{
+        "icon": "ic_notification"
+      },
       "client_info": {
         "mobilesdk_app_id": "1:918260638919:android:071835fa7ad1ef2492cae2",
         "android_client_info": {
           "package_name": "com.corvoebrietas.Amtar"
         }
+       
       },
       "oauth_client": [
         {

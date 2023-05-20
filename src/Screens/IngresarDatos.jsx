@@ -29,7 +29,7 @@ export function DatosLogin({ route }) {
   const [downloadUrl, setDownloadUrl] = useState("");
   const [crearDesactivado, setCrearDesactivado] = useState(false);
   const [progress, setProgress] = useState(0);
-  // const [isEmailVerified, setIsEmailVerified] = useState(false);
+
   const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
 
@@ -317,7 +317,7 @@ export function DatosLogin({ route }) {
                     : Theme.Dorado,
                   height: Dimensions.get("window").height / 15,
                   width: Dimensions.get("window").width / 1.2,
-                  bottom:Dimensions.get("window").height / 15,
+                  bottom: Dimensions.get("window").height / 15,
                   padding: 13,
                   alignItems: "center",
                   alignSelf: "center",
@@ -337,7 +337,7 @@ export function DatosLogin({ route }) {
                   bottom: Dimensions.get("window").height / 19,
                 }}
               >
-                Progreso de subida!
+                Progreso de subida
               </Text>
               <Progress.Bar
                 width={200}

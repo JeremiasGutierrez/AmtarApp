@@ -1,17 +1,16 @@
-import { View, Text, Image, Dimensions, ImageBackground } from "react-native";
+import { View, Text, Image, Dimensions, TouchableOpacity } from "react-native";
 import { estilo } from "./StyleSheetInicio.jsx";
 import { LogoText } from "./LogoText.jsx";
 import { FirmaText } from "./FirmaText.jsx";
 import { Sellos } from "./Sellos.jsx";
 import FlipCard from "react-native-flip-card";
 import firestore from "@react-native-firebase/firestore";
-import {
-  todosTopic,
-  blueTopic,
-} from "../Funciones/firebaseAPI";
+import { todosTopic, blueTopic } from "../Funciones/firebaseAPI";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { usePreventScreenCapture } from "expo-screen-capture";
 import { useEffect, useState, useCallback } from "react";
+import { Theme } from "../Theme.jsx";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export function ScreenTarjetaAzul({ data, Marca }) {
   usePreventScreenCapture();
@@ -39,20 +38,20 @@ export function ScreenTarjetaAzul({ data, Marca }) {
         await firestore()
           .collection("Usuarios")
           .doc(datoDni)
-          .get().then((data) => {
-            setImg(data.data().DownloadUrl);  
-          }).catch((error) => { 
+          .get()
+          .then((data) => {
+            setImg(data.data().DownloadUrl);
+          })
+          .catch((error) => {
             console.log(error);
-          });;
-      
-        
+          });
       } catch (error) {
         console.error("Error al obtener datos:", error);
       }
     };
     obtenerDatos();
   }, [datoDni]);
-  const sourceImage=img !== "" ? { uri: img } : null;
+  const sourceImage = img !== "" ? { uri: img } : null;
   useEffect(() => {
     const allowScreenOrientation = async () => {
       await ScreenOrientation.lockAsync(
@@ -73,7 +72,6 @@ export function ScreenTarjetaAzul({ data, Marca }) {
     };
   }, [handleOrientationChange]);
 
-  
   const datoNombre = data.Apenom;
 
   const setTopics = async () => {
@@ -98,33 +96,96 @@ export function ScreenTarjetaAzul({ data, Marca }) {
         <Text></Text>
       </View>
     );
+
   let mensajeError =
     Marca && "MO1" === Marca.trim() ? (
-      <View>
+      <TouchableOpacity style={estilo.expiradoContainer}>
+        <MaterialIcons
+          name="error"
+          size={50}
+          color={"white"}
+          style={estilo.loguito}
+        />
         <Text>Servicio restingido. Comuniquese con AMTAR</Text>
-      </View>
-    ) : (
-      <View>
-        <Text></Text>
-      </View>
-    );
+      </TouchableOpacity>
+    ) : null;
+  let moroso2 =
+    Marca && ["MO2"].includes(Marca.trim()) ? (
+      <TouchableOpacity style={estilo.expiradoContainer}>
+        <MaterialIcons
+          name="error"
+          size={50}
+          color={"white"}
+          style={estilo.loguito}
+        />
+        <Text>
+          Servicio Limitado. Comuniquese con AMTAR (0223) 473-3351/475-1514.
+          Usted solo cuenta con el Programa medico obligatorio
+        </Text>
+      </TouchableOpacity>
+    ) : null;
   let servicioLimitado =
-    Marca && ["MO2", "MO3"].includes(Marca.trim()) ? (
+    Marca && ["MO3"].includes(Marca.trim()) ? (
+      <TouchableOpacity style={estilo.expiradoContainer}>
+        <MaterialIcons
+          name="error"
+          size={50}
+          color={"white"}
+          style={estilo.loguito}
+        />
+        <Text>
+          Servicio Limitado. Comuniquese con AMTAR (0223) 473-3351/475-1514
+        </Text>
+      </TouchableOpacity>
+    ) : null;
+
+  const expiredDate = () => {
+    if (
+      data.hasOwnProperty("FecVen") &&
+      new Date(data.FecVen[0].bagfmfevto) < Date.now()
+    ) {
+      return data.FecVen;
+    }
+    return null;
+  };
+  setTopics();
+  if (expiredDate() !== null) {
+    return (
       <View>
-        <Text>Servicio Limitado. Comuniquese con AMTAR</Text>
-      </View>
-    ) : (
-      <View>
-        <Text></Text>
+        <TouchableOpacity style={estilo.expiradoContainer}>
+          <MaterialIcons
+            name="error"
+            size={50}
+            color={"white"}
+            style={estilo.loguito}
+          />
+          <Text
+            style={{ color: Theme.Blanco, textAlign: "center", fontSize: 20 }}
+          >
+            Servicio expirado. Comuniquese con AMTAR (0223) 473-3351/475-1514.
+            DNI: {datoDni}
+          </Text>
+        </TouchableOpacity>
       </View>
     );
-  setTopics();
- 
+  } else if (mensajeError !== null) {
+    return (
+      <View>
+        <Text
+          style={{ color: Theme.Blanco, textAlign: "center", fontSize: 20 }}
+        >
+          {mensajeError}
+        </Text>
+      </View>
+    );
+  } else {
     return (
       <FlipCard flipVertical={false} flipHorizontal={true}>
         <View
           style={
-            isPortrait ? estilo.containerTarjetaBlanca : estilo.containerLandscape
+            isPortrait
+              ? estilo.containerTarjetaBlanca
+              : estilo.containerLandscape
           }
         >
           <Text style={[estilo.amtarTitulo, estilo.dorado]}>A.M.T.A.R.</Text>
@@ -202,7 +263,7 @@ export function ScreenTarjetaAzul({ data, Marca }) {
             <Text style={estilo.textoNormal}>Parentesco</Text>
             <Text style={estilo.textoNormal}>Doc</Text>
           </View>
-  
+
           <View
             style={[
               isPortrait ? estilo.row : estilo.rowLandscape,
@@ -216,8 +277,16 @@ export function ScreenTarjetaAzul({ data, Marca }) {
               <FirmaText isPortrait={isPortrait} />
             </View>
           </View>
+
+          <View>
+            {servicioLimitado !== null
+              ? servicioLimitado
+              : moroso2 !== null
+              ? moroso2
+              : ""}
+          </View>
         </View>
-  
+
         <View
           style={[
             isPortrait
@@ -231,11 +300,11 @@ export function ScreenTarjetaAzul({ data, Marca }) {
           />
           <Image
             source={sourceImage}
-            style={[isPortrait ? estilo.imagenFotoVertical : estilo.imagenFoto]}  
+            style={[isPortrait ? estilo.imagenFotoVertical : estilo.imagenFoto]}
             resizeMode="contain"
           />
         </View>
-      </FlipCard> 
+      </FlipCard>
     );
   }
-
+}

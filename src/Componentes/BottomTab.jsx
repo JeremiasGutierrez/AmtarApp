@@ -12,6 +12,7 @@ import { NodoFamiliar } from "../Screens/NodoFamiliar";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { DatosLogin } from "../Screens/IngresarDatos";
 import { IniciarSesion } from "../Screens/InicioSesion";
+import { Notificaciones } from "../Funciones/notificaciones";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -49,6 +50,19 @@ export function BottomTab({ route }) {
           tabBarLabel: "Tu Familia",
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="family-restroom" size={24} color="black" />
+          ),
+        }}
+      /> 
+       <Tab.Screen
+        name="Notificaciones"
+        component={Notificaciones}
+        initialParams={{
+          otherParam: otherParam,
+        }}
+        options={{
+          tabBarLabel: "Notificaciones",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="notifications" size={24} color={'black'} />
           ),
         }}
       /> 
