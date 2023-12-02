@@ -2,10 +2,6 @@ import {
   View,
   StyleSheet,
   Dimensions,
-  Button,
-  Linking,
-  Pressable,
-  Text,
 } from "react-native";
 import { Theme } from "../Theme";
 import { WebView } from "react-native-webview";
@@ -14,14 +10,12 @@ export function Pago() {
   return (
     <View style={{flex:1}}>
       <WebView
-        source={{ uri: "http://starpyh.dyndns.org/pagos/" }}
+        source={{ uri: "http://starpyh.dyndns.org/pagos/" } }
         mixedContentMode="always"
-        style={{ flex: 1 }}
+        style={{ flex: 1}}
+        scalesPageToFit={true}
       />
     </View>
-    // <Pressable style={estilo.container}onPress={() => {Linking.openURL("http://starpyh.dyndns.org/pagos/");}}>
-    //   <Text style={estilo.text}>Pagar Amtar</Text>
-    // </Pressable>
   );
 }
 const estilo = StyleSheet.create({

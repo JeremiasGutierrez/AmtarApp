@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Pressable,
 } from "react-native";
+
 import { ScreenCustom } from "../Componentes/ScreenCustom";
 import { useNavigation } from "@react-navigation/native";
 import * as ScreenOrientation from "expo-screen-orientation";

@@ -10,7 +10,7 @@ import * as ScreenOrientation from "expo-screen-orientation";
 import { useEffect, useState, useCallback } from "react";
 import { usePreventScreenCapture } from "expo-screen-capture";
 import { MaterialIcons } from "@expo/vector-icons";
-
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 export function ScreenTarjetaBlanca({ data, Marca }) {
   usePreventScreenCapture();
   const [isPortrait, setIsPortrait] = useState(true);
@@ -191,7 +191,7 @@ export function ScreenTarjetaBlanca({ data, Marca }) {
           <Text style={[estilo.amtarTitulo, estilo.dorado]}>A.M.T.A.R.</Text>
           <LogoText />
           <Text style={estilo.amtarSubTitulo}>R.N.E.M.P: 311234</Text>
-          <View style={estilo.containerHeader}></View>
+          <View style={estilo.containerHeader}/> 
           <View style={estilo.linea} />
           <View
             style={[

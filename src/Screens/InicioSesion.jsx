@@ -7,45 +7,79 @@ import {
   Button,
   TouchableOpacity,
   Dimensions,
+  ActivityIndicator 
 } from "react-native";
 import auth from "@react-native-firebase/auth";
 import { useNavigation } from "@react-navigation/native";
 import { Theme } from "../Theme";
 import { usersData } from "../Funciones/apiRequest";
-import { AntDesign, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, MaterialIcons  } from "@expo/vector-icons";
 import firestore from "@react-native-firebase/firestore";
 import messaging from "@react-native-firebase/messaging";
 export function IniciarSesion() {
-  
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [dni, setDni] = useState("");
   const navigation = useNavigation();
   const { data, loading } = usersData(dni.trim());
   const user = auth().currentUser;
-  const [tokenPersona, setTokenPersona] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleRefresh = () => {
+    setIsLoading(true); // Activar la carga
+
+    setTimeout(() => {
+      setIsLoading(false);
+      navigation.replace("IniciarSesion");
+      // Desactivar la carga después de 1 segundo
+    }, 1000); // 1000 milisegundos (1 segundo)
+
+    // Puedes realizar otras operaciones aquí antes de recargar el componente
+
+    // Simulamos una recarga volviendo a renderizar el componente
+    // Esto es solo un ejemplo, podrías navegar a una pantalla diferente y volver si lo deseas
+  };
+
+  useEffect(() => {
+    const unsubscribe = auth().onAuthStateChanged((user) => {
+      if (user) {
+        user
+          .reload()
+          .then(() => {
+            if (user.emailVerified) {
+              console.log(user.emailVerified);
+            }
+          })
+          .catch((error) => {
+            // Manejar el error en caso de que ocurra al recargar el usuario
+            console.log("Error al recargar el usuario:", error);
+          });
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
   const handleLogin = async () => {
     try {
       await messaging().registerDeviceForRemoteMessages();
       messaging().onTokenRefresh((newToken) => {
         firestore()
-          .collection('Usuarios')
+          .collection("Usuarios")
           .doc(dni)
           .update({
             Token: newToken,
           })
           .then(() => {
-            console.log('User updated!');
+            console.log("User updated!");
           });
       });
     } catch (error) {
-      alert('OWO?', error.message);
+      alert(error.message);
     }
-   await user
+    await user
       .reload()
       .then(() => {
-        if (user.emailVerified) {
+        if (user && user.emailVerified) {
           auth()
             .signInWithEmailAndPassword(email, password)
             .then(() => {
@@ -66,10 +100,8 @@ export function IniciarSesion() {
             .catch((error) => {
               alert("Email o contraseña incorrectos");
             });
-        }
-        else {
-         
-          alert("Verifique su Email porfavor!");
+        } else {
+          alert("Verifique su Email porfavor. Y verifique su casilla de SPAM");
         }
       })
       .catch((error) => {
@@ -79,12 +111,14 @@ export function IniciarSesion() {
 
   return (
     <View style={estilo.container}>
+      
       <Text style={[estilo.title, { color: "#DDD" }]}>Iniciar sesión</Text>
       <View style={[estilo.form]}>
         <Text style={{ color: "#DDD" }}>Correo electrónico</Text>
         <TextInput
           style={estilo.input}
           value={email}
+          autoCapitalize="none"
           onChangeText={setEmail}
           keyboardType="email-address"
         />
@@ -101,6 +135,7 @@ export function IniciarSesion() {
         <TextInput
           style={estilo.input}
           secureTextEntry
+          autoCapitalize="none"
           value={password}
           onChangeText={setPassword}
         />
@@ -124,20 +159,40 @@ export function IniciarSesion() {
             style={estilo.loguito}
           />
         </TouchableOpacity>
-        { <TouchableOpacity
-          style={estilo.botonIniciar}
-          onPress={async () => {
-            await user.sendEmailVerification();
-          }}
-        >
-          <Text style={estilo.crearText}>Enviar Correo de verificacion</Text>
-          <MaterialIcons
-            name="verified"
-            size={50}
-            color="black"
-            style={estilo.loguito}
-          />
-        </TouchableOpacity> }
+        {
+          <TouchableOpacity
+            style={estilo.botonIniciar}
+            onPress={async () => {
+              await user.sendEmailVerification();
+            }}
+          >
+            <Text style={estilo.crearText}>Enviar Correo de verificacion</Text>
+            <MaterialIcons
+              name="verified"
+              size={50}
+              color="black"
+              style={estilo.loguito}
+            />
+          </TouchableOpacity>
+        }
+        {
+          <View>
+          {isLoading ? (
+            <ActivityIndicator  name="spinner" size={50} color="#0000ff" />
+          ) : (
+            <>
+              <TouchableOpacity style={estilo.botonIniciar} onPress={handleRefresh}>
+                <Text style={estilo.crearText}>Ya verifique mi correo</Text>
+                <MaterialIcons
+                name="verified-user"
+                size={50}
+                color={"black"}
+                style={estilo.loguito}/>
+                </TouchableOpacity> 
+            </>
+          )}
+        </View>
+        }
       </View>
     </View>
   );

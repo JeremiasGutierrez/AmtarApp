@@ -29,7 +29,6 @@ export function DatosLogin({ route }) {
   const [downloadUrl, setDownloadUrl] = useState("");
   const [crearDesactivado, setCrearDesactivado] = useState(false);
   const [progress, setProgress] = useState(0);
-
   const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
 
@@ -166,7 +165,7 @@ export function DatosLogin({ route }) {
   const sendEmailVerification = async (user) => {
     try {
       await user.sendEmailVerification();
-      console.log("Correo de verificación enviado:", user);
+      console.log("Correo de verificación enviado:");
     } catch (error) {
       console.error("Error al enviar correo de verificación:", error);
     }
@@ -217,6 +216,7 @@ export function DatosLogin({ route }) {
               <TextInput
                 placeholder="Ingrese su Email"
                 style={estilo.placeHolderEmail}
+                autoCapitalize="none"
                 onChangeText={handleEmailChange}
                 keyboardType="email-address"
               />
@@ -236,6 +236,7 @@ export function DatosLogin({ route }) {
                 placeholder="Ingrese su Contraseña "
                 style={estilo.placeHolderContra}
                 value={password}
+                autoCapitalize="none"
                 onChangeText={(text) => handlePasswordChange(text)}
                 secureTextEntry={!isChecked}
                 onBlur={validatePassword}
@@ -267,6 +268,7 @@ export function DatosLogin({ route }) {
               <TextInput
                 placeholder="Confirme su Contraseña"
                 style={estilo.placeHolderContra}
+                autoCapitalize="none"
                 value={confirmPassword}
                 onChangeText={(text) => setConfirmPassword(text)}
                 secureTextEntry={!isChecked}
